@@ -1,19 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ["./src/**/*.{html,ts}"],
   theme: {
-    fontFamily:{
-      'montserrat': ['Montserrat', 'sans-serif'],
+    fontFamily: {
+      montserrat: ["Montserrat", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      animation: {
+        fadeIn: "fadeIn 0.5s ease-in-out",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+    },
   },
-  plugins: [
-    require('daisyui'),
-  ],
+  plugins: [require("daisyui")],
   daisyui: {
-    themes: ['night'],
-  }
-}
-
+    themes: ["night"],
+  },
+};
