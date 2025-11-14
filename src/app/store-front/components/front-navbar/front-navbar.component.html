@@ -54,33 +54,46 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-       <li>
-          <a
-            class="btn btn-ghost"
-            routerLink="/gender/men"
-            routerLinkActive="text-secondary"
-            >Men</a
-          >
-        </li>
-        <li>
-          <a
-            class="btn btn-ghost"
-            routerLink="/gender/women"
-            routerLinkActive="text-secondary"
-            >Women</a
-          >
-        </li>
-        <li>
-          <a
-            class="btn btn-ghost"
-            routerLink="/gender/kids"
-            routerLinkActive="text-secondary"
-            >Kids</a
-          >
-        </li>
+      <li>
+        <a
+          class="btn btn-ghost"
+          routerLink="/gender/men"
+          routerLinkActive="text-secondary"
+          >Men</a
+        >
+      </li>
+      <li>
+        <a
+          class="btn btn-ghost"
+          routerLink="/gender/women"
+          routerLinkActive="text-secondary"
+          >Women</a
+        >
+      </li>
+      <li>
+        <a
+          class="btn btn-ghost"
+          routerLink="/gender/kids"
+          routerLinkActive="text-secondary"
+          >Kids</a
+        >
+      </li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <a class="btn">Button</a>
+  <div class="navbar-end gap-4">
+    @if( authService.authStatus() === 'authenticated') {
+    <button class="btn btn-ghost">
+      {{ authService.user()?.fullName }}
+    </button>
+    <button class="btn btn-sm btn-error" (click)="authService.logout()">Logout</button>
+    }
+    <!--  -->
+    @else if( authService.authStatus() === 'not-authenticated'){
+    <a class="btn btn-secondary" routerLink="/auth/login">Login</a>
+    }
+    <!--  -->
+    @else {
+    <span class="btn btn-ghost">Loading...</span>
+    }
   </div>
 </div>
