@@ -9,51 +9,79 @@
   <!-- General Data -->
   <div class="flex flex-col gap-2">
     <h2 class="text-2xl font-bold h-12">General Data</h2>
+    <label for="title">Title</label>
     <input
+      id="title"
       type="text"
       placeholder="Title"
       class="input input-bordered w-full"
+      [class.border-red-500]="productForm.get('title')?.errors ?? false"
       formControlName="title"
     />
+    <form-error-label [control]="productForm.get('title')!" />
 
+    <label for="slug">Slug</label>
     <input
+      id="slug"
       type="text"
       placeholder="Slug"
       class="input input-bordered w-full"
+      [class.border-red-500]="productForm.get('slug')?.errors ?? false"
       formControlName="slug"
     />
+    <form-error-label [control]="productForm.get('slug')!" />
 
+    <label for="description">Description</label>
     <textarea
+      id="description"
       class="textarea textarea-bordered"
+      [class.border-red-500]="productForm.get('description')?.errors ?? false"
       placeholder="Description"
       rows="6"
       formControlName="description"
     ></textarea>
+    <form-error-label [control]="productForm.get('description')!" />
 
     <h2 class="text-lg font-bold">Sales Data</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-      <input
-        type="number"
-        placeholder="Price"
-        class="input input-bordered w-full"
-        formControlName="price"
-      />
+      <div>
+        <label for="price">Price</label>
+        <input
+          id="price"
+          type="number"
+          placeholder="Price"
+          class="input input-bordered w-full"
+          [class.border-red-500]="productForm.get('price')?.errors ?? false"
+          formControlName="price"
+        />
+        <form-error-label [control]="productForm.get('price')!" />
+      </div>
 
-      <input
-        type="number"
-        placeholder="Inventory"
-        class="input input-bordered w-full"
-        formControlName="stock"
-      />
+      <div>
+        <label for="inventory">Inventory</label>
+        <input
+          id="inventory"
+          type="number"
+          placeholder="Inventory"
+          class="input input-bordered w-full"
+          [class.border-red-500]="productForm.get('stock')?.errors ?? false"
+          formControlName="stock"
+        />
+        <form-error-label [control]="productForm.get('stock')!" />
+      </div>
     </div>
 
     <!-- tags -->
+    <label for="tags">Tags (comma separated)</label>
     <input
+      id="tags"
       type="text"
       placeholder="Tags"
       class="input input-bordered w-full"
+      [class.border-red-500]="productForm.get('tags')?.errors ?? false"
       formControlName="tags"
     />
+    <form-error-label [control]="productForm.get('tags')!" />
 
     <!-- Buttons for Gender -->
     <div class="grid grid-cols-4 gap-2">

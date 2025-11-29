@@ -4,10 +4,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 import { Product } from '@products/interfaces/product.interface';
 import { FormUtils } from '@utils/form-utils';
+import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 
 @Component({
   selector: 'product-details',
-  imports: [ProductCarouselComponent, ReactiveFormsModule],
+  imports: [
+    ProductCarouselComponent,
+    ReactiveFormsModule,
+    FormErrorLabelComponent,
+  ],
   templateUrl: './product-details.component.html',
 })
 export class ProductDetailsComponent implements OnInit {
@@ -49,12 +54,12 @@ export class ProductDetailsComponent implements OnInit {
   onSizeClicked(size: string) {
     const currentSizes = this.productForm.value.sizes ?? [];
 
-    if(currentSizes.includes(size)) {
+    if (currentSizes.includes(size)) {
       currentSizes.splice(currentSizes.indexOf(size), 1);
     } else {
       currentSizes.push(size);
     }
-    
+
     this.productForm.patchValue({ sizes: currentSizes });
   }
 
@@ -64,6 +69,8 @@ export class ProductDetailsComponent implements OnInit {
     //   return;
     // }
 
-    console.log(this.productForm.value);
+    const isValid = this.productForm.valid;
+
+    console.log(this.productForm.value, { isValid });
   }
 }
