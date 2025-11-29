@@ -1,7 +1,7 @@
 <h1 class="text-2xl font-bold">{{ product().title }}</h1>
 <div class="divider"></div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<form [formGroup]="productForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" (ngSubmit)="onSubmit()">
   <!-- General Data -->
   <div class="flex flex-col gap-2">
     <h2 class="text-2xl font-bold h-12">General Data</h2>
@@ -9,14 +9,16 @@
       type="text"
       placeholder="Title"
       class="input input-bordered w-full"
+      formControlName="title"
     />
 
-    <input type="text" placeholder="Slug" class="input input-bordered w-full" />
+    <input type="text" placeholder="Slug" class="input input-bordered w-full" formControlName="slug" />
 
     <textarea
       class="textarea textarea-bordered"
       placeholder="Description"
       rows="6"
+      formControlName="description"
     ></textarea>
 
     <h2 class="text-lg font-bold">Sales Data</h2>
@@ -25,25 +27,27 @@
         type="number"
         placeholder="Price"
         class="input input-bordered w-full"
+        formControlName="price"
       />
 
       <input
         type="number"
         placeholder="Inventory"
         class="input input-bordered w-full"
+        formControlName="stock"
       />
     </div>
 
     <!-- tags -->
-    <input type="text" placeholder="Tags" class="input input-bordered w-full" />
+    <input type="text" placeholder="Tags" class="input input-bordered w-full" formControlName="tags" />
 
     <!-- Buttons for Gender -->
     <div class="grid grid-cols-4 gap-2">
       <!-- <button class="btn btn-sm btn-outline">Male</button> -->
-      <button class="btn btn-sm btn-primary">Male</button>
-      <button class="btn btn-sm btn-accent">Female</button>
-      <button class="btn btn-sm btn-warning">Kid</button>
-      <button class="btn btn-sm btn-secondary">Unisex</button>
+      <button class="btn btn-sm btn-primary" type="button">Male</button>
+      <button class="btn btn-sm btn-accent" type="button">Female</button>
+      <button class="btn btn-sm btn-warning" type="button">Kid</button>
+      <button class="btn btn-sm btn-secondary" type="button">Unisex</button>
     </div>
 
     <!-- <select class="select select-bordered w-full">
@@ -55,7 +59,7 @@
     <!-- Sizes -->
     <div class="grid grid-cols-6 gap-2">
       @for (size of sizes; track size) {
-      <button class="btn btn-sm btn-outline">{{ size }}</button>
+      <button class="btn btn-sm btn-outline" type="button">{{ size }}</button>
       }
     </div>
   </div>
@@ -74,4 +78,4 @@
 
     <input type="file" class="file-input file-input-bordered w-full mt-4" />
   </div>
-</div>
+</form>
