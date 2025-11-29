@@ -1,7 +1,11 @@
 <h1 class="text-2xl font-bold">{{ product().title }}</h1>
 <div class="divider"></div>
 
-<form [formGroup]="productForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="productForm"
+  class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+  (ngSubmit)="onSubmit()"
+>
   <!-- General Data -->
   <div class="flex flex-col gap-2">
     <h2 class="text-2xl font-bold h-12">General Data</h2>
@@ -12,7 +16,12 @@
       formControlName="title"
     />
 
-    <input type="text" placeholder="Slug" class="input input-bordered w-full" formControlName="slug" />
+    <input
+      type="text"
+      placeholder="Slug"
+      class="input input-bordered w-full"
+      formControlName="slug"
+    />
 
     <textarea
       class="textarea textarea-bordered"
@@ -39,15 +48,48 @@
     </div>
 
     <!-- tags -->
-    <input type="text" placeholder="Tags" class="input input-bordered w-full" formControlName="tags" />
+    <input
+      type="text"
+      placeholder="Tags"
+      class="input input-bordered w-full"
+      formControlName="tags"
+    />
 
     <!-- Buttons for Gender -->
     <div class="grid grid-cols-4 gap-2">
       <!-- <button class="btn btn-sm btn-outline">Male</button> -->
-      <button class="btn btn-sm btn-primary" type="button">Male</button>
-      <button class="btn btn-sm btn-accent" type="button">Female</button>
-      <button class="btn btn-sm btn-warning" type="button">Kid</button>
-      <button class="btn btn-sm btn-secondary" type="button">Unisex</button>
+      <button
+        class="btn btn-sm"
+        [class.btn-primary]="productForm.value.gender === 'men'"
+        type="button"
+        (click)="productForm.patchValue({ gender: 'men' })"
+      >
+        Male
+      </button>
+      <button
+        class="btn btn-sm"
+        [class.btn-accent]="productForm.value.gender === 'women'"
+        type="button"
+        (click)="productForm.patchValue({ gender: 'women' })"
+      >
+        Female
+      </button>
+      <button
+        class="btn btn-sm"
+        [class.btn-warning]="productForm.value.gender === 'kid'"
+        type="button"
+        (click)="productForm.patchValue({ gender: 'kid' })"
+      >
+        Kid
+      </button>
+      <button
+        class="btn btn-sm"
+        [class.btn-secondary]="productForm.value.gender === 'unisex'"
+        type="button"
+        (click)="productForm.patchValue({ gender: 'unisex' })"
+      >
+        Unisex
+      </button>
     </div>
 
     <!-- <select class="select select-bordered w-full">
@@ -59,7 +101,14 @@
     <!-- Sizes -->
     <div class="grid grid-cols-6 gap-2">
       @for (size of sizes; track size) {
-      <button class="btn btn-sm btn-outline" type="button">{{ size }}</button>
+      <button
+        class="btn btn-sm"
+        [class.btn-secondary]="productForm.value.sizes?.includes(size)"
+        type="button"
+        (click)="onSizeClicked(size)"
+      >
+        {{ size }}
+      </button>
       }
     </div>
   </div>
