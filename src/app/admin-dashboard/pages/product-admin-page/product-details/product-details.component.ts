@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -36,7 +43,7 @@ export class ProductDetailsComponent implements OnInit {
       ...this.tempImages(),
     ];
     return currentProductImages;
-  })
+  });
 
   productForm = this.fb.group({
     title: ['', Validators.required],
@@ -102,14 +109,18 @@ export class ProductDetailsComponent implements OnInit {
       // Create new product
 
       const product = await firstValueFrom(
-        this.productsService.createProduct(productLike)
+        this.productsService.createProduct(productLike, this.imageFileList)
       );
 
       this.router.navigate(['/admin/products', product.id]);
     } else {
       // Update existing product
       await firstValueFrom(
-        this.productsService.updateProduct(this.product().id, productLike)
+        this.productsService.updateProduct(
+          this.product().id,
+          productLike,
+          this.imageFileList
+        )
       );
     }
 
