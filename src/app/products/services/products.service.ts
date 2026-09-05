@@ -42,8 +42,6 @@ export class ProductsService {
   getProducts(options: Options): Observable<ProductsResponse> {
     const { limit = 9, offset = 0, gender = '' } = options;
 
-    // console.log(this.productsCache.entries());
-
     const key = `${limit}-${offset}-${gender}`; // Create a unique key for the cache
 
     if (this.productsCache.has(key)) {
@@ -59,7 +57,7 @@ export class ProductsService {
         },
       })
       .pipe(
-        tap((resp) => console.log(resp)),
+        // tap((resp) => console.log(resp)),
         tap((resp) => this.productsCache.set(key, resp))
       );
   }
@@ -105,10 +103,6 @@ export class ProductsService {
       ),
       tap((product) => this.updateProductCache(product))
     );
-
-    // return this.http
-    //   .patch<Product>(`${baseUrl}/products/${id}`, productLike)
-    //   .pipe(tap((product) => this.updateProductCache(product)));
   }
 
   createProduct(
@@ -127,15 +121,6 @@ export class ProductsService {
     );
   }
 
-  // createProduct(
-  //   productLike: Partial<Product>,
-  //   imageFileList?: FileList
-  // ): Observable<Product> {
-  //   return this.http
-  //     .post<Product>(`${baseUrl}/products`, productLike)
-  //     .pipe(tap((product) => this.updateProductCache(product)));
-  // }
-
   updateProductCache(product: Product) {
     const productId = product.id;
 
@@ -147,8 +132,6 @@ export class ProductsService {
           currentProduct.id === productId ? product : currentProduct
       );
     });
-
-    console.log('Product cache updated');
   }
 
   // Take a fileList and upload files
