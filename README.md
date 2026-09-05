@@ -131,4 +131,4 @@ src/
 
 ## Notes
 
-This project is licensed under the **MIT License**. It was created for learning purposes following the [Udemy](https://www.udemy.com).
+It was created for learning purposes following the [Udemy](https://www.udemy.com).
