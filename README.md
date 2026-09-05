@@ -1,59 +1,134 @@
-# TesloShopApp
+# Teslo | Shop
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+> An electric-style e-commerce storefront and admin dashboard, inspired by Tesla. Built with Angular.
 
-## Development server
+**Teslo | Shop** is a full-stack practice application with an Angular 19 front-end and a REST API backend. It features a modern storefront for browsing products by category, a product detail page with an image carousel, authentication with role-based access, and a complete admin dashboard for managing products.
 
-To start a local development server, run:
+## Features
+
+### Store Front
+
+- Product catalog filtered by gender (`/gender/men`, `/gender/women`, `/gender/kids`).
+- Product detail pages with an interactive image carousel (Swiper).
+- Responsive navigation bar with mobile menu.
+- Custom 404 / not-found page.
+- Paginated product browsing.
+
+### Authentication
+
+- Login and register pages.
+- JWT-based auth with `AuthInterceptor` attaching the token to requests.
+- Route guards: `NotAuthenticatedGuard` (redirects logged-in users away from `/auth`) and `IsAdminGuard` (restricts `/admin` to admins).
+
+### Admin Dashboard
+
+- Products list with a management table.
+- Create / edit products with validation (reactive forms).
+- Role-based access control (only admins can manage products).
+- Sidebar layout with navigation.
+
+## Tech Stack
+
+| Layer      | Technology                                             |
+| ---------- | ------------------------------------------------------ |
+| Framework  | [Angular](https://angular.dev) 19                       |
+| Language   | [TypeScript](https://www.typescriptlang.org) ~5.6        |
+| Styling    | [Tailwind CSS](https://tailwindcss.com) 3 + [daisyUI](https://daisyui.com) 4 (`night` theme) |
+| Carousel   | [Swiper](https://swiperjs.com) 12                       |
+| Fonts      | Montserrat Alternates                                   |
+| Backend    | REST API at `https://angular-teslo-shop-app-backend.onrender.com/api` |
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org) 18 or later.
+- [Angular CLI](https://angular.dev/tools/cli) installed globally (recommended):
 
 ```bash
+npm install -g @angular/cli
+```
+
+## Getting Started
+
+Install the dependencies:
+
+```bash
+npm install
+```
+
+## Development Server
+
+Run a local development server:
+
+```bash
+npm start
+# or
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The application automatically reloads whenever a source file changes.
 
-## Code scaffolding
+## Build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Build the project for production:
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+The build artifacts are stored in the `dist/` directory. Production builds are optimized for performance and speed.
 
-To build the project run:
+## Running Tests
+
+Execute unit tests with Karma:
 
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Environment Configuration
 
-## Running unit tests
+API URLs are managed through environment files under `src/environments/`:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- `environment.ts` — production configuration.
+- `environment.development.ts` — development configuration (used with `ng serve`).
 
-```bash
-ng test
+The main backend endpoint is defined in `environment.ts`:
+
+```ts
+export const environment = {
+  baseUrl: 'https://angular-teslo-shop-app-backend.onrender.com/api',
+};
 ```
 
-## Running end-to-end tests
+> **Note:** This repository only contains the front-end. The backend must be running (or reachable at `baseUrl`) for account creation, login, and product data to work.
 
-For end-to-end (e2e) testing, run:
+## Project Structure
 
-```bash
-ng e2e
+```
+src/
+└── app/
+    ├── auth/               # Login, register, auth service, guards, interceptors
+    ├── store-front/        # Public pages: home, gender, product detail, 404
+    │   └── layouts/        # Storefront layout + navbar
+    ├── admin-dashboard/    # Admin pages: products list, product form
+    │   └── layouts/        # Admin sidebar layout
+    ├── products/           # Product interfaces, service, pipes, shared components
+    ├── shared/             # Shared components, interceptors
+    ├── utils/              # Utility helpers (form utilities)
+    └── app.routes.ts       # Root routing configuration
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Path                  | Description                                        |
+| --------------------- | -------------------------------------------------- |
+| `/`                   | Home page                                          |
+| `/gender/:gender`     | Product listing by gender (men / women / kids)     |
+| `/product/:idSlug`    | Product detail page                                |
+| `/auth/login`         | Login (guarded for non-authenticated users)        |
+| `/auth/register`      | Register                                           |
+| `/admin/products`     | Products management (admin only)                   |
+| `/admin/products/:id` | Create / edit a product (admin only)               |
 
-## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+
+This project is licensed under the **MIT License**. It was created for learning purposes following the [Udemy](https://www.udemy.com).
